@@ -5,7 +5,6 @@ function love.load()
     finished = false
     countdown = 3
     current_polo = {"", "", "", ""}
-    num_polo = 0
 end
 
 function love.keypressed(key)
