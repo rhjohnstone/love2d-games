@@ -5,12 +5,14 @@ function love.load()
     finished = false
     countdown = 3
     current_polo = {"", "", "", ""}
+    all_keys = {}
 end
 
 function love.keypressed(key)
     if key == "r" then
         love.load()
     elseif (countdown == 0) and (not finished) then
+        table.insert(all_keys, key)
         for i = 1, 3, 1 do
             current_polo[i] =  current_polo[i + 1]
         end
@@ -66,3 +68,8 @@ function love.update(dt)
     end
 end
 
+-- TODO
+function count_mistakes()
+    local s = table.concat(all_keys)
+    
+end
