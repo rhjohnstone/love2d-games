@@ -6,6 +6,9 @@ function love.load()
     countdown = 3
     current_polo = {"", "", "", ""}
     all_keys = {}
+    local example = "pppolopppololo"
+    print(example)
+    print(count_mistakes(example))
 end
 
 function love.keypressed(key)
@@ -61,6 +64,7 @@ function love.update(dt)
             radius = radius * 0.8
             if radius <= 0.7 then
                 finished = true
+                -- TODO: count_mistakes()
             else
                 current_polo = {"", "", "", ""}
             end
@@ -68,8 +72,33 @@ function love.update(dt)
     end
 end
 
--- TODO
-function count_mistakes()
-    local s = table.concat(all_keys)
-    
+
+function count_mistakes(s, current_count)
+    current_count = current_count or 0
+    if s:len() == 0 then
+        return current_count
+    else
+        for i = 1, #s do
+            local c = s:sub(i, i)
+            if c ~= "p" then
+                current_count = current_count + 1
+            elseif s:sub(i+1, i+1) ~= "o" then
+                local remainder = s:sub(i+1)
+                current_count = current_count + 1
+                return count_mistakes(remainder, current_count)
+            elseif s:sub(i+2, i+2) ~= "l" then
+                local remainder = s:sub(i+2)
+                current_count = current_count + 1
+                return count_mistakes(remainder, current_count)
+            elseif s:sub(i+3, i+3) ~= "o" then
+                local remainder = s:sub(i+3)
+                current_count = current_count + 1
+                return count_mistakes(remainder, current_count)
+            else
+                local remainder = s:sub(i+4)
+                return count_mistakes(remainder, current_count)
+            end
+        end
+        return current_count
+    end
 end
