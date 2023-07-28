@@ -6,9 +6,6 @@ function love.load()
     countdown = 3
     current_polo = {"", "", "", ""}
     all_keys = {}
-    local example = "pppolopppololo"
-    print(example)
-    print(count_mistakes(example))
 end
 
 function love.keypressed(key)
@@ -44,6 +41,15 @@ function love.draw()
         love.graphics.setColor(1, 1, 1)
         local tt = tonumber(string.format("%.3f", time_taken))
         love.graphics.print("Finished in "..tt.." s", 50, 50)
+        local full_string = table.concat(all_keys)
+        local num_mistakes = count_mistakes(full_string)
+        local s
+        if num_mistakes == 1  then
+            s = ""
+        else
+            s = "s"
+        end  
+        love.graphics.print("with "..num_mistakes.." mistake"..s, 50, 100)
     end
     love.graphics.setColor(1, 1, 1)
     love.graphics.circle("fill", 200, 300, 100)
