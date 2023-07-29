@@ -43,6 +43,17 @@ function classic_load()
     current_index = 1
 end
 
+function time_trial_load()
+    time_trial_time = 10
+    start_radius = 90
+    end_radius = 0.7
+    diff = (start_radius - end_radius) / time_trial_time
+    finished = false
+    countdown = 3
+    countdown_time = 0
+    time_taken = 0
+end
+
 function menu_keypressed(key)
     if key == 'up' then
         selected_menu_item = selected_menu_item - 1
@@ -58,6 +69,8 @@ function menu_keypressed(key)
         game_state = menu_options[selected_menu_item]
         if game_state == "Classic" then
             classic_load()
+        elseif game_state == "Time trial" then
+            time_trial_load()
         end
     end
 end
@@ -151,8 +164,26 @@ function classic_update(dt)
     end
 end
 
+function time_trial_update(dt)
+    if countdown > 0 then
+        countdown_time = countdown_time + dt
+        if countdown_time >= 1 then
+            countdown = countdown - 1
+            countdown_time = 0
+        end
+    elseif not finished then
+        time_taken = time_taken + dt
+        radius = start_radius - diff * time_taken
+        if radius <= end_radius then
+            finished = true
+        end
+    end
+end
+
 function love.update(dt)
     if game_state == "Classic" then
         classic_update(dt)
+    elseif game_state == "Time trial" then
+        time_trial_update(dt)
     end
 end
