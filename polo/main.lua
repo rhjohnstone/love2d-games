@@ -52,7 +52,7 @@ function love.draw()
         end
     else
         love.graphics.setColor(1, 1, 1)
-        local tt = tonumber(string.format("%.3f", time_taken))
+        local tt = string.format("%.3f", time_taken)
         love.graphics.print("Finished in "..tt.." s", 50, 50)
         local s
         if num_mistakes == 1  then
