@@ -56,7 +56,7 @@ function survival.draw()
     love.graphics.print("Press R to retry", 50, 500)
     if not survival.finished then
         love.graphics.setColor(1, 1, 1)
-        love.graphics.print("Type POLO as fast as you can", 50, 50)
+        love.graphics.print("Type POLO as carefully as you can", 50, 50)
         local font = love.graphics.newFont(108)
         love.graphics.setFont(font)
         if survival.countdown > 0 then
@@ -75,13 +75,8 @@ function survival.draw()
             s1 = "s"
         end  
         love.graphics.print("Typed "..survival.num_polo.." POLO"..s1, 50, 50)
-        local s2
-        if survival.num_mistakes == 1  then
-            s2 = ""
-        else
-            s2 = "s"
-        end
-        love.graphics.print("with "..survival.num_mistakes.." mistake"..s2, 50, 100)
+        local tt = string.format("%.3f", survival.time_taken)
+        love.graphics.print("in "..tt.." s", 50, 100)
     end
     love.graphics.setColor(1, 1, 1)
     love.graphics.circle("fill", 200, 300, 100)
