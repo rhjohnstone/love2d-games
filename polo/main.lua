@@ -24,14 +24,14 @@ function draw_menu()
     -- love.graphics.line(horizontal_center, 0, horizontal_center, window_height)
     -- love.graphics.line(0, vertical_center, window_width, vertical_center)
 
-    love.graphics.setColor(1, 1, 1, 1)
+    love.graphics.setColor(1, 1, 1)
     love.graphics.printf("Polo", 0, 150, window_width, 'center')
 
     for i = 1, #menu_options do
         if i == selected_menu_item then
-            love.graphics.setColor(1, 1, 0, 1)
+            love.graphics.setColor(1, 1, 0)
         else
-            love.graphics.setColor(1, 1, 1, 1)
+            love.graphics.setColor(1, 1, 1)
         end
         love.graphics.printf(menu_options[i], 0, start_y + menu_font_height * (i-1), window_width, 'center')
     end
