@@ -53,7 +53,6 @@ function classic.draw()
     local font = love.graphics.newFont(36)
     love.graphics.setFont(font)
     love.graphics.setColor(1, 1, 1)
-    love.graphics.print("Press R to retry", 50, 500)
     if not classic.finished then
         love.graphics.setColor(1, 1, 1)
         love.graphics.print("Type POLO as fast as you can", 50, 50)
@@ -68,7 +67,7 @@ function classic.draw()
         end
     else
         love.graphics.setColor(1, 1, 1)
-        local tt = string.format("%.3f", classic.time_taken)    
+        local tt = string.format("%.3f", classic.time_taken)
         love.graphics.print("Finished in "..tt.." s", 50, 50)
         local s
         if classic.num_mistakes == 1  then

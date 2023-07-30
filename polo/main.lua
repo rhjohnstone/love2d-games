@@ -5,7 +5,7 @@ local selected_menu_item = 1
 local classic = require("classic")
 local survival = require("survival")
 local time_trial = require("time_trial")
--- TODO: game_modes = {"Classic": classic, "Survival": survival, "Time trial": time_trial}
+local game_modes = {["Classic"]=classic, ["Survival"]=survival, ["Time trial"]=time_trial}
 
 function love.load()
     window_width, window_height = love.graphics.getDimensions()
@@ -37,17 +37,6 @@ function draw_menu()
     end
 end
 
-function time_trial_load()
-    time_trial_time = 10
-    start_radius = 90
-    end_radius = 0.7
-    diff = (start_radius - end_radius) / time_trial_time
-    finished = false
-    countdown = 3
-    countdown_time = 0
-    time_taken = 0
-end
-
 function menu_keypressed(key)
     if key == 'up' then
         selected_menu_item = selected_menu_item - 1
@@ -59,15 +48,9 @@ function menu_keypressed(key)
         if selected_menu_item > #menu_options then
             selected_menu_item = 1
         end
-    elseif key == 'return' or key == 'kpenter' then
+    elseif (key == 'return') or (key == 'kpenter') then
         game_state = menu_options[selected_menu_item]
-        if game_state == "Classic" then
-            classic.load()
-        elseif game_state == "Survival" then
-            survival.load()
-        elseif game_state == "Time trial" then
-            time_trial.load()
-        end
+        game_modes[game_state].load()
     end
 end
 
@@ -76,37 +59,30 @@ function love.keypressed(key)
         game_state = "menu"
     elseif game_state  == "menu" then
         menu_keypressed(key)
-    elseif game_state  == "Classic" then
-        classic.keypressed(key)
-    elseif game_state  == "Survival" then
-        survival.keypressed(key)
-    elseif game_state  == "Time trial" then
-        time_trial.keypressed(key)
+    else
+        game_modes[game_state].keypressed(key)
     end
 end
 
 function love.draw()
     if game_state == "menu" then
         draw_menu(menu_options, selected_menu_item, menu_font_height, window_width)
-    elseif game_state == "Classic" then
-        classic.draw()
-    elseif game_state == "Survival" then
-        survival.draw()
-    elseif game_state == "Time trial" then
-        time_trial.draw()
     else
+        local font = love.graphics.newFont(36)
+        love.graphics.setFont(font)
         love.graphics.setColor(1, 1, 1)
-        love.graphics.print("Coming soon...", 50, 100)
-        love.graphics.print("Press M for main menu.", 50, 500)
+        love.graphics.print("Press R to retry, M for main menu", 50, 500)
+        game_modes[game_state].draw()
+        -- local font = love.graphics.newFont(36)
+        -- love.graphics.setFont(font)
+        -- love.graphics.setColor(1, 1, 1)
+        --love.graphics.print("Coming soon...", 50, 100)
+        --love.graphics.print("Press M for main menu.", 50, 550)
     end
 end
 
 function love.update(dt)
-    if game_state == "Classic" then
-        classic.update(dt)
-    elseif game_state == "Survival" then
-        survival.update(dt)
-    elseif game_state == "Time trial" then
-        time_trial.update(dt)
+    if game_state ~= "menu" then
+        game_modes[game_state].update(dt)
     end
 end

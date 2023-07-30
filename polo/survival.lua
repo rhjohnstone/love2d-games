@@ -53,7 +53,6 @@ function survival.draw()
     local font = love.graphics.newFont(36)
     love.graphics.setFont(font)
     love.graphics.setColor(1, 1, 1)
-    love.graphics.print("Press R to retry", 50, 500)
     if not survival.finished then
         love.graphics.setColor(1, 1, 1)
         love.graphics.print("Type POLO as carefully as you can", 50, 50)

@@ -56,7 +56,6 @@ function time_trial.draw()
     local font = love.graphics.newFont(36)
     love.graphics.setFont(font)
     love.graphics.setColor(1, 1, 1)
-    love.graphics.print("Press R to retry", 50, 500)
     if not time_trial.finished then
         love.graphics.setColor(1, 1, 1)
         love.graphics.print("Type POLO as fast as you can", 50, 50)
