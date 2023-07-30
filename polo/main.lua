@@ -37,17 +37,15 @@ function draw_menu()
     end
 end
 
+function fix_modulo(x, n)
+    return ((x - 1) % n) + 1
+end
+
 function menu_keypressed(key)
     if key == 'up' then
-        selected_menu_item = selected_menu_item - 1
-        if selected_menu_item < 1 then
-            selected_menu_item = #menu_options
-        end
+        selected_menu_item = fix_modulo(selected_menu_item - 1, #menu_options)
     elseif key == 'down' then
-        selected_menu_item = selected_menu_item + 1
-        if selected_menu_item > #menu_options then
-            selected_menu_item = 1
-        end
+        selected_menu_item = fix_modulo(selected_menu_item + 1, #menu_options)
     elseif (key == 'return') or (key == 'kpenter') then
         game_state = menu_options[selected_menu_item]
         game_modes[game_state].load()
