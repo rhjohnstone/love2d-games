@@ -3,6 +3,7 @@ local menu_options = {"Classic", "Survival", "Time trial"}
 local selected_menu_item = 1
 
 local classic = require("classic")
+local survival = require("survival")
 local time_trial = require("time_trial")
 -- TODO: game_modes = {"Classic": classic, "Survival": survival, "Time trial": time_trial}
 
@@ -62,6 +63,8 @@ function menu_keypressed(key)
         game_state = menu_options[selected_menu_item]
         if game_state == "Classic" then
             classic.load()
+        elseif game_state == "Survival" then
+            survival.load()
         elseif game_state == "Time trial" then
             time_trial.load()
         end
@@ -75,6 +78,8 @@ function love.keypressed(key)
         menu_keypressed(key)
     elseif game_state  == "Classic" then
         classic.keypressed(key)
+    elseif game_state  == "Survival" then
+        survival.keypressed(key)
     elseif game_state  == "Time trial" then
         time_trial.keypressed(key)
     end
@@ -85,6 +90,8 @@ function love.draw()
         draw_menu(menu_options, selected_menu_item, menu_font_height, window_width)
     elseif game_state == "Classic" then
         classic.draw()
+    elseif game_state == "Survival" then
+        survival.draw()
     elseif game_state == "Time trial" then
         time_trial.draw()
     else
@@ -97,6 +104,8 @@ end
 function love.update(dt)
     if game_state == "Classic" then
         classic.update(dt)
+    elseif game_state == "Survival" then
+        survival.update(dt)
     elseif game_state == "Time trial" then
         time_trial.update(dt)
     end

@@ -19,7 +19,7 @@ end
 function time_trial.keypressed(key)
     if key == "r" then
         time_trial.load()
-    elseif not time_trial.finished then
+    elseif (time_trial.countdown == 0) and (not time_trial.finished) then
         local is_correct = key == correct[time_trial.current_index]
         if not is_correct then
             time_trial.num_mistakes = time_trial.num_mistakes + 1
