@@ -3,6 +3,8 @@ local menu_options = {"Classic", "Survival", "Time trial"}
 local selected_menu_item = 1
 
 local classic = require("classic")
+local time_trial = require("time_trial")
+-- TODO: game_modes = {"Classic": classic, "Survival": survival, "Time trial": time_trial}
 
 function love.load()
     window_width, window_height = love.graphics.getDimensions()
@@ -61,7 +63,7 @@ function menu_keypressed(key)
         if game_state == "Classic" then
             classic.load()
         elseif game_state == "Time trial" then
-            time_trial_load()
+            time_trial.load()
         end
     end
 end
@@ -73,6 +75,8 @@ function love.keypressed(key)
         menu_keypressed(key)
     elseif game_state  == "Classic" then
         classic.keypressed(key)
+    elseif game_state  == "Time trial" then
+        time_trial.keypressed(key)
     end
 end
 
@@ -81,6 +85,8 @@ function love.draw()
         draw_menu(menu_options, selected_menu_item, menu_font_height, window_width)
     elseif game_state == "Classic" then
         classic.draw()
+    elseif game_state == "Time trial" then
+        time_trial.draw()
     else
         love.graphics.setColor(1, 1, 1)
         love.graphics.print("Coming soon...", 50, 100)
@@ -88,26 +94,10 @@ function love.draw()
     end
 end
 
-function time_trial_update(dt)
-    if countdown > 0 then
-        countdown_time = countdown_time + dt
-        if countdown_time >= 1 then
-            countdown = countdown - 1
-            countdown_time = 0
-        end
-    elseif not finished then
-        time_taken = time_taken + dt
-        radius = start_radius - diff * time_taken
-        if radius <= end_radius then
-            finished = true
-        end
-    end
-end
-
 function love.update(dt)
     if game_state == "Classic" then
         classic.update(dt)
     elseif game_state == "Time trial" then
-        time_trial_update(dt)
+        time_trial.update(dt)
     end
 end

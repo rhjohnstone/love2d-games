@@ -16,7 +16,7 @@ end
 function classic.keypressed(key)
     if key == "r" then
         classic.load()
-    else
+    elseif not classic.finished then
         local is_correct = key == correct[classic.current_index]
         if not is_correct then
             classic.num_mistakes = classic.num_mistakes + 1
