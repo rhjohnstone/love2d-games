@@ -52,8 +52,16 @@ function menu_keypressed(key)
     end
 end
 
+function love.textinput(t)
+    if game_state == "menu" then
+        --do nothing
+    else
+        game_modes[game_state].textinput(t)
+    end
+end
+
 function love.keypressed(key)
-    if key == "m" then
+    if key == "escape" then
         game_state = "menu"
     elseif game_state  == "menu" then
         menu_keypressed(key)
@@ -69,7 +77,7 @@ function love.draw()
         local font = love.graphics.newFont(36)
         love.graphics.setFont(font)
         love.graphics.setColor(1, 1, 1)
-        love.graphics.print("Press R to retry, M for main menu", 50, 500)
+        love.graphics.print("Press R to retry, ESC for main menu", 50, 500)
         game_modes[game_state].draw()
         -- local font = love.graphics.newFont(36)
         -- love.graphics.setFont(font)

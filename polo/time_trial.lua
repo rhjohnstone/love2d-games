@@ -16,6 +16,10 @@ function time_trial.load()
     time_trial.num_polo = 0
 end
 
+function time_trial.textinput(k)
+    --todo
+end
+
 function time_trial.keypressed(key)
     if key == "r" then
         time_trial.load()
