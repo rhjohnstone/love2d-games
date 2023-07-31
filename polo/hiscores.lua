@@ -36,13 +36,14 @@ function hiscore.get_hiscores(n,mode)
     local obj = null
     if code == 200 then
         obj = json.decode(body)
+        if mode == 'classic' then
+            obj['ordered_keys'] = getKeysSortedByValue(obj['score'],gt_compare)
+        else
+            obj['ordered_keys'] = getKeysSortedByValue(obj['score'],lt_compare)
+        end
     else
         print('hiscores are inaccessible!')
-    end
-    if mode == 'classic' then
-        obj['ordered_keys'] = getKeysSortedByValue(obj['score'],gt_compare)
-    else
-        obj['ordered_keys'] = getKeysSortedByValue(obj['score'],lt_compare)
+        print("code: "..code)
     end
     return obj
 end
