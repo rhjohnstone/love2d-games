@@ -10,7 +10,7 @@ function classic.load()
     classic.current_index = 1
     classic.num_mistakes = 0
     classic.finished = false
-    classic.radius = 1 --90
+    classic.radius = 90
     classic.countdown = 3
     classic.countdown_time = 0
     classic.time_taken = 0

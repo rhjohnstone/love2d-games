@@ -59,11 +59,11 @@ function hiscore.check_hiscore(score,mode)
     for k,v in pairs(scores['score']) do
         count = count + 1
         if mode == 'classic' then
-            if v < score then
+            if score < v then
                 has_hiscore = true
             end
         else
-            if v > score then
+            if score > v then
                 has_hiscore = true
             end
         end
