@@ -3,6 +3,27 @@ local http = require("socket.http")
 
 local json = require "json"
 
+function lt_compare(a,b)
+    return a < b
+end
+
+function gt_compare(a,b)
+    return a > b
+end
+
+function getKeysSortedByValue(tbl, sortFunction)
+    local keys = {}
+    for key in pairs(tbl) do
+      table.insert(keys, key)
+    end
+  
+    table.sort(keys, function(i, j)
+      return sortFunction(tbl[i], tbl[j])
+    end)
+  
+    return keys
+end
+
 function hiscore.get_hiscores(n,mode)
     query = "?"
     if not (n == null) then
@@ -17,6 +38,11 @@ function hiscore.get_hiscores(n,mode)
         obj = json.decode(body)
     else
         print('hiscores are inaccessible!')
+    end
+    if mode == 'classic' then
+        obj['ordered_keys'] = getKeysSortedByValue(obj['score'],gt_compare)
+    else
+        obj['ordered_keys'] = getKeysSortedByValue(obj['score'],lt_compare)
     end
     return obj
 end

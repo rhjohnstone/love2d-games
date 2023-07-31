@@ -10,7 +10,7 @@ function classic.load()
     classic.current_index = 1
     classic.num_mistakes = 0
     classic.finished = false
-    classic.radius = 90
+    classic.radius = 1 --90
     classic.countdown = 3
     classic.countdown_time = 0
     classic.time_taken = 0
@@ -137,13 +137,13 @@ function classic.draw()
                 love.graphics.print("Return: view hiscores", 350, 400)
             else
                 local col_a_x = 350
-                local col_b_x = 500
+                local col_b_x = 650
                 local basey = 200
                 local spacing = 50
                 local count = 0
-                for k,v in pairs(classic.hiscore_table['score']) do 
-                    love.graphics.print(classic.hiscore_table['name'][k],col_a_x,basey+count*spacing)
-                    love.graphics.print(string.sub(v,0,5).." s",col_b_x,basey+count*spacing)
+                for k,v in pairs(classic.hiscore_table['ordered_keys']) do 
+                    love.graphics.print(classic.hiscore_table['name'][v],col_a_x,basey+count*spacing)
+                    love.graphics.print(string.sub(classic.hiscore_table['score'][v],0,5).." s",col_b_x,basey+count*spacing)
                     count = count+1
                 end
             end
