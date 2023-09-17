@@ -49,10 +49,6 @@ function survival.update(dt)
     end
 end
 
-function survival.textinput(k)
-    --todo
-end
-
 function survival.draw()
     local font = love.graphics.newFont(36)
     love.graphics.setFont(font)
